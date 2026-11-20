@@ -8,6 +8,7 @@ export function LogIn() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   const handleEmailInput = (e) => {
     setEmail(e.target.value);
@@ -17,6 +18,7 @@ export function LogIn() {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch("http://localhost:3000/api/users/log-in", {
         method: "POST",
@@ -39,6 +41,8 @@ export function LogIn() {
     } catch (error) {
       setMessage(error.message);
       console.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -64,7 +68,9 @@ export function LogIn() {
           onChange={handlePasswordInput}
           required
         />
-        <button type="submit">Log in</button>
+        <button disabled={loading} type="submit">
+          Log in
+        </button>
       </form>
     </>
   );
