@@ -10,6 +10,7 @@ export function SignUp() {
   const [confirmpassword, setConfirmpassword] = useState("");
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   function handleNameInput(e) {
     setUsername(e.target.value);
@@ -29,9 +30,11 @@ export function SignUp() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
 
     if (password !== confirmpassword) {
       setMessage("Passwords do not match!");
+      setLoading(false);
       return;
     }
 
@@ -63,6 +66,8 @@ export function SignUp() {
       navigate("/");
     } catch (error) {
       setMessage(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -110,7 +115,9 @@ export function SignUp() {
           required
         />
 
-        <button type="submit">Sign Up</button>
+        <button disabled={loading} type="submit">
+          Sign Up
+        </button>
       </form>
     </>
   );
