@@ -12,6 +12,7 @@ export function NavBar() {
     try {
       const res = await fetch("http://localhost:3000/users/log-out", {
         method: "POST",
+        credentials: "include",
       });
       if (!res.ok) {
         alert("Something went wrong. Please try again");

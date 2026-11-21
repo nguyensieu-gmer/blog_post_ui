@@ -43,6 +43,7 @@ export function SignUp() {
 
       const response = await fetch("http://localhost:3000/api/users/sign-up", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

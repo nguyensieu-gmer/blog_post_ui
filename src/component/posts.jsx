@@ -10,6 +10,7 @@ export function Posts() {
         const res = await fetch("http://localhost:3000/api/posts", {
           method: "GET",
           signal: controller.signal,
+          credentials: "include",
         });
         if (!res.ok) {
           throw new Error(`HTTP error: status ${res.status}`);
