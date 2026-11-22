@@ -5,7 +5,7 @@ export function BlogForm({ setOpenForm }) {
   const [content, setContent] = useState("");
   const handleSubmit = async () => {
     try {
-      const res = fetch("http://localhost:3000/api/posts/", {
+      const res = await fetch("http://localhost:3000/api/posts/", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -18,7 +18,6 @@ export function BlogForm({ setOpenForm }) {
         }),
       });
       const data = await res.json();
-      console.log(data);
       if (!res.ok) {
         throw new Error(data.message || "Failed");
       }
