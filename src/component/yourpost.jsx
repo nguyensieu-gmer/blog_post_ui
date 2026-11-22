@@ -1,7 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { BlogForm } from "./blogForm";
+import { UserContext } from "../context";
 
 export function YourPost() {
   const [userPost, setUserPost] = useState(null);
+  const [openForm, setOpenForm] = useState(false);
+  const { user } = useContext(UserContext);
+
+  const handleOpenForm = () => {
+    setOpenForm(true);
+  };
+
   useEffect(() => {
     const controller = new AbortController();
     const fetchData = async () => {
@@ -27,8 +36,15 @@ export function YourPost() {
     fetchData();
     return () => controller.abort();
   }, []);
-  return (
+  return !user ? (
+    <h1>Please login to use this service</h1>
+  ) : (
     <div>
+      {openForm ? (
+        <BlogForm setOpenForm={setOpenForm} />
+      ) : (
+        <button onClick={handleOpenForm}>Add new Post</button>
+      )}
       <ul>
         {userPost?.map((post) => {
           return (
