@@ -1,21 +1,39 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { UserContext } from "../context";
 
 export function NavBar() {
   const { user, setUser } = useContext(UserContext);
-  const { loading, setLoading } = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const fetchUser = async () => {
+      const res = await fetch("http://localhost:3000/api/users/me", {
+        method: "GET",
+        signal: controller.signal,
+        credentials: "include",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data);
+      }
+    };
+    fetchUser();
+    return () => controller.abort();
+  }, [setUser]);
 
   const handleLogOut = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/users/log-out", {
+      const res = await fetch("http://localhost:3000/api/users/log-out", {
         method: "POST",
         credentials: "include",
       });
       if (!res.ok) {
-        alert("Something went wrong. Please try again");
+        console.error(res);
+        alert("Something went wrong with api. Please try again");
         return;
       }
       setUser(null);
