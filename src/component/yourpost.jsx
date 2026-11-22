@@ -27,7 +27,6 @@ export function YourPost() {
     fetchData();
     return () => controller.abort();
   }, []);
-  console.log(userPost);
   return (
     <div>
       <ul>
