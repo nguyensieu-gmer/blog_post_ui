@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { BlogForm } from "./blogForm";
 import { UserContext } from "../context";
 import { PublishBTN } from "./PublishBTN";
+import { RmBTN } from "./RemovePost";
 
 export function YourPost({ count, setCount }) {
   const [userPost, setUserPost] = useState(null);
@@ -55,6 +56,7 @@ export function YourPost({ count, setCount }) {
                 isPublish={post.published}
                 setCount={setCount}
               />
+              <RmBTN postId={post.id} setCount={setCount} />
               {console.log(post.id, post.published)}
               <li>
                 <h1>{post.title}</h1>
