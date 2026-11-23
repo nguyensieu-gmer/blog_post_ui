@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { BlogForm } from "./blogForm";
 import { UserContext } from "../context";
+import { PublishBTN } from "./PublishBTN";
 
-export function YourPost() {
+export function YourPost({ count, setCount }) {
   const [userPost, setUserPost] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const { user } = useContext(UserContext);
@@ -35,7 +36,7 @@ export function YourPost() {
     };
     fetchData();
     return () => controller.abort();
-  }, []);
+  }, [count]);
   return !user ? (
     <h1>Please login to use this service</h1>
   ) : (
@@ -48,10 +49,28 @@ export function YourPost() {
       <ul>
         {userPost?.map((post) => {
           return (
-            <li key={post.id}>
-              <h1>{post.title}</h1>
-              <p>{post.content}</p>
-            </li>
+            <div key={post.id}>
+              <PublishBTN
+                postId={post.id}
+                isPublish={post.published}
+                setCount={setCount}
+              />
+              {console.log(post.id, post.published)}
+              <li>
+                <h1>{post.title}</h1>
+                <p>{post.content}</p>
+                <ul>
+                  {post.comments.map((comment) => {
+                    return (
+                      <li key={comment.id}>
+                        <h6>{comment.author.name}</h6>
+                        <p>{comment.comment}</p>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </li>
+            </div>
           );
         })}
       </ul>
