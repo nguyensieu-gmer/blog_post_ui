@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { transformMMDDYYYY } from "../lib/transformDate";
+import { CommentForm } from "./CommentForm";
 
-export function Posts() {
+export function Posts({ count, setCount }) {
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     const controller = new AbortController();
     const fetchData = async () => {
@@ -26,7 +28,7 @@ export function Posts() {
     fetchData();
 
     return () => controller.abort();
-  }, []);
+  }, [count]);
 
   return (
     <>
@@ -40,6 +42,7 @@ export function Posts() {
                 </p>
                 <h1>{post.title}</h1>
                 <p>{post.content}</p>
+                <CommentForm postId={post.id} setCount={setCount} />
                 {post.comments.length !== 0 && <h4>comments</h4>}
                 <ul>
                   {post.comments.map((comment) => {
