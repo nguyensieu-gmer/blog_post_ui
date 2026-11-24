@@ -43,6 +43,7 @@ export function BlogForm({ setOpenForm }) {
         id="title"
         value={title}
         onChange={handleTitleChange}
+        required
       />
       <br />
       <label htmlFor="content">Content</label>
@@ -51,6 +52,7 @@ export function BlogForm({ setOpenForm }) {
         id="content"
         value={content}
         onChange={handleContentChange}
+        required
       ></textarea>
       <button type="submit">Add</button>
       <button onClick={() => setOpenForm(false)}>cancel</button>
