@@ -57,7 +57,6 @@ export function YourPost({ count, setCount }) {
                 setCount={setCount}
               />
               <RmBTN postId={post.id} setCount={setCount} />
-              {console.log(post.id, post.published)}
               <li>
                 <h1>{post.title}</h1>
                 <p>{post.content}</p>
