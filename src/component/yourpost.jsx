@@ -4,8 +4,10 @@ import { UserContext } from "../context";
 import { PublishBTN } from "./PublishBTN";
 import { RmBTN } from "./RemovePost";
 import { CommentForm } from "./CommentForm";
+import { useOutletContext } from "react-router";
 
-export function YourPost({ count, setCount }) {
+export function YourPost() {
+  const [count, setCount] = useOutletContext();
   const [userPost, setUserPost] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const { user } = useContext(UserContext);

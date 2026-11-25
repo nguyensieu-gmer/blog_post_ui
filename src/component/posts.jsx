@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { transformMMDDYYYY } from "../lib/transformDate";
 import { CommentForm } from "./CommentForm";
+import { useOutletContext } from "react-router";
 
-export function Posts({ count, setCount }) {
+export function Posts() {
+  const [count, setCount] = useOutletContext();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
