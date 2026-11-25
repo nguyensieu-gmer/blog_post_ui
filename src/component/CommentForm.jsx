@@ -41,6 +41,7 @@ export function CommentForm({ postId, setCount }) {
         placeholder="Comment"
         value={comment}
         onChange={handleChangeComment}
+        required
       />
       <button>Send</button>
     </form>
