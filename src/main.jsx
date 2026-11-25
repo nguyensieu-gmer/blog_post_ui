@@ -5,6 +5,8 @@ import { Outlet, RouterProvider, createBrowserRouter } from "react-router";
 import { SignUp } from "./component/signup.jsx";
 import { LogIn } from "./component/login.jsx";
 import { UserContext } from "./context.js";
+import { YourPost } from "./component/yourpost.jsx";
+import { Posts } from "./component/posts.jsx";
 
 export function RootLayout() {
   const [user, setUser] = useState(null);
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <App />,
+        children: [
+          { path: "your_post", element: <YourPost /> },
+          { index: true, element: <Posts /> },
+        ],
       },
       {
         path: "sign-up",
