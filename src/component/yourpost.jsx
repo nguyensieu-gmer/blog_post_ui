@@ -3,6 +3,7 @@ import { BlogForm } from "./blogForm";
 import { UserContext } from "../context";
 import { PublishBTN } from "./PublishBTN";
 import { RmBTN } from "./RemovePost";
+import { CommentForm } from "./CommentForm";
 
 export function YourPost({ count, setCount }) {
   const [userPost, setUserPost] = useState(null);
@@ -11,6 +12,29 @@ export function YourPost({ count, setCount }) {
 
   const handleOpenForm = () => {
     setOpenForm(true);
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/comments/${commentId}`,
+        {
+          method: "delete",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        },
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "Something wrong with api");
+      }
+      setCount((prev) => prev + 1);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -60,12 +84,20 @@ export function YourPost({ count, setCount }) {
               <li>
                 <h1>{post.title}</h1>
                 <p>{post.content}</p>
+                <CommentForm postId={post.id} setCount={setCount} />
                 <ul>
                   {post.comments.map((comment) => {
                     return (
                       <li key={comment.id}>
                         <h6>{comment.author.name}</h6>
                         <p>{comment.comment}</p>
+                        <button
+                          onClick={() => {
+                            handleDeleteComment(comment.id);
+                          }}
+                        >
+                          Delete
+                        </button>
                       </li>
                     );
                   })}
