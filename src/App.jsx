@@ -1,6 +1,5 @@
+import { Link, Outlet } from "react-router";
 import { NavBar } from "./component/navbar";
-import { Posts } from "./component/posts";
-import { YourPost } from "./component/yourpost";
 import { useState } from "react";
 
 function App() {
@@ -9,11 +8,10 @@ function App() {
     <div>
       <NavBar />
       <div>
-        {/* <Posts /> */}
-        <div>
-          <YourPost count={count} setCount={setCount} />
-        </div>
+        <Link to="/">Posts</Link>
+        <Link to="your_post">Your post</Link>
       </div>
+      <Outlet context={[count, setCount]} />
     </div>
   );
 }
