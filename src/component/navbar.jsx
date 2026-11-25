@@ -46,22 +46,40 @@ export function NavBar() {
     }
   };
   return (
-    <div>
-      <h1>Hello {user?.name || "World!"} </h1>
-      {!user ? (
-        <>
-          <Link to="sign-up">Sign up</Link>
-          <Link to="log-in">Log in</Link>
-        </>
-      ) : (
-        <div>
-          <form onSubmit={handleLogOut}>
-            <button disabled={loading} type="submit">
-              Log out
-            </button>
-          </form>
-        </div>
-      )}
-    </div>
+    <nav className="w-full bg-white shadow-sm border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <h1 className="text-xl font-bold text-gray-800">
+          Hello <span className="text-blue-700">{user?.name || "World!"} </span>
+        </h1>
+        {!user ? (
+          <div className="flex items-center gap-4">
+            <Link
+              className="text-gray-600 font-medium hover:text-blue-700 transition-colors"
+              to="sign-up"
+            >
+              Sign up
+            </Link>
+            <Link
+              className="bg-blue-700 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              to="log-in"
+            >
+              Log in
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <form onSubmit={handleLogOut}>
+              <button
+                className="bg-red-500 text-white px-5 py-2 rounded-lg font-medium hover:bg-red-600 transition-colors"
+                disabled={loading}
+                type="submit"
+              >
+                {loading ? "Logging out..." : "Log out"}
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+    </nav>
   );
 }
