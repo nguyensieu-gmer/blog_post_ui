@@ -7,6 +7,7 @@ import { LogIn } from "./component/login.jsx";
 import { UserContext } from "./context.js";
 import { YourPost } from "./component/yourpost.jsx";
 import { Posts } from "./component/posts.jsx";
+import ErrorPage from "./component/BadUrl.jsx";
 
 export function RootLayout() {
   const [user, setUser] = useState(null);
@@ -20,6 +21,7 @@ export function RootLayout() {
 const router = createBrowserRouter([
   {
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
