@@ -47,8 +47,7 @@ export function Posts() {
                     Publish at{" "}
                     <span className="font-medium text-gray-700">
                       {transformMMDDYYYY(post.date)}
-                    </span>{" "}
-                    by {post.author.name}
+                    </span>
                   </p>
                   <p className="text-sm text-gray-500">
                     By{" "}
