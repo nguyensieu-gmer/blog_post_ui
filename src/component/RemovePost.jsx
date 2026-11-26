@@ -18,5 +18,12 @@ export function RmBTN({ postId, setCount }) {
       console.error(error);
     }
   };
-  return <button onClick={handleRemovePost}>Remove post</button>;
+  return (
+    <button
+      onClick={handleRemovePost}
+      className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-red-700 active:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+    >
+      Remove post
+    </button>
+  );
 }

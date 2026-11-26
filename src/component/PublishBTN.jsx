@@ -23,7 +23,14 @@ export function PublishBTN({ isPublish, postId, setCount }) {
     }
   };
   return (
-    <button onClick={handlePublish}>
+    <button
+      onClick={handlePublish}
+      className={`rounded-lg px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors ${
+        isPublish
+          ? "bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700"
+          : "bg-green-600 hover:bg-green-700 active:bg-green-800"
+      }`}
+    >
       {!isPublish ? "Publish" : "Unpublish"}
     </button>
   );

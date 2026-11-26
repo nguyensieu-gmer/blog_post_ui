@@ -35,15 +35,21 @@ export function CommentForm({ postId, setCount }) {
     setComment(e.target.value);
   };
   return (
-    <form onSubmit={handleAddComment}>
+    <form
+      className="flex flex-col gap-3 sm:items-center sm:flex-row"
+      onSubmit={handleAddComment}
+    >
       <input
         type="text"
         placeholder="Comment"
         value={comment}
         onChange={handleChangeComment}
         required
+        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
       />
-      <button>Send</button>
+      <button className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700 active:bg-blue-800">
+        Send
+      </button>
     </form>
   );
 }
