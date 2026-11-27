@@ -4,8 +4,9 @@ export function BlogForm({ setOpenForm }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const handleSubmit = async () => {
+    const apiUrl = import.meta.env.VITE_API_URL || "?";
     try {
-      const res = await fetch("http://localhost:3000/api/posts/", {
+      const res = await fetch(`${apiUrl}/api/posts/`, {
         method: "POST",
         credentials: "include",
         headers: {

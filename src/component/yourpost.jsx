@@ -12,6 +12,7 @@ export function YourPost() {
   const [userPost, setUserPost] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const { user } = useContext(UserContext);
+  const apiUrl = import.meta.env.VITE_API_URL || "?";
 
   const handleOpenForm = () => {
     setOpenForm(true);
@@ -19,17 +20,14 @@ export function YourPost() {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/comments/${commentId}`,
-        {
-          method: "delete",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
+      const res = await fetch(`${apiUrl}/api/comments/${commentId}`, {
+        method: "delete",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
-      );
+      });
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.message || "Something wrong with api");
@@ -44,7 +42,7 @@ export function YourPost() {
     const controller = new AbortController();
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/posts/user-post", {
+        const res = await fetch(`${apiUrl}/api/posts/user-post`, {
           method: "GET",
           signal: controller.signal,
           credentials: "include",
@@ -64,7 +62,7 @@ export function YourPost() {
     };
     fetchData();
     return () => controller.abort();
-  }, [count]);
+  }, [apiUrl, count]);
 
   return !user ? (
     <div className="flex min-h-[600px] items-center justify-center rounded-xl bg-white p-8 shadow-sm">

@@ -18,9 +18,10 @@ export function LogIn() {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
+    const apiUrl = import.meta.env.VITE_API_URL || "?";
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/users/log-in", {
+      const response = await fetch(`${apiUrl}/api/users/log-in`, {
         method: "POST",
         credentials: "include",
         headers: {

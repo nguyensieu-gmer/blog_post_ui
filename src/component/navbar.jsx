@@ -6,11 +6,12 @@ export function NavBar() {
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL || "?";
 
   useEffect(() => {
     const controller = new AbortController();
     const fetchUser = async () => {
-      const res = await fetch("http://localhost:3000/api/users/me", {
+      const res = await fetch(`${apiUrl}/api/users/me`, {
         method: "GET",
         signal: controller.signal,
         credentials: "include",
@@ -22,12 +23,12 @@ export function NavBar() {
     };
     fetchUser();
     return () => controller.abort();
-  }, [setUser]);
+  }, [apiUrl, setUser]);
 
   const handleLogOut = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/api/users/log-out", {
+      const res = await fetch(`${apiUrl}/api/users/log-out`, {
         method: "POST",
         credentials: "include",
       });

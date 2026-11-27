@@ -11,6 +11,7 @@ export function SignUp() {
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL || "?";
 
   function handleNameInput(e) {
     setUsername(e.target.value);
@@ -41,7 +42,7 @@ export function SignUp() {
     try {
       setMessage("");
 
-      const response = await fetch("http://localhost:3000/api/users/sign-up", {
+      const response = await fetch(`${apiUrl}/api/users/sign-up`, {
         method: "POST",
         credentials: "include",
         headers: {

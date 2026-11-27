@@ -3,21 +3,19 @@ import { useState } from "react";
 export function CommentForm({ postId, setCount }) {
   const [comment, setComment] = useState("");
   const handleAddComment = async () => {
+    const apiUrl = import.meta.env.VITE_API_URL || "?";
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/posts/${postId}/comment`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-          body: JSON.stringify({
-            comment,
-          }),
+      const res = await fetch(`${apiUrl}/api/posts/${postId}/comment`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
-      );
+        body: JSON.stringify({
+          comment,
+        }),
+      });
       const data = await res.json();
       if (!res.ok) {
         throw new Error(

@@ -1,18 +1,16 @@
 export function PublishBTN({ isPublish, postId, setCount }) {
   const valueFetch = !isPublish ? "publish" : "unpublish";
+  const apiUrl = import.meta.env.VITE_API_URL || "?";
   const handlePublish = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/posts/${postId}/${valueFetch}`,
-        {
-          method: "post",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
+      const res = await fetch(`${apiUrl}/api/posts/${postId}/${valueFetch}`, {
+        method: "post",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
-      );
+      });
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.message);

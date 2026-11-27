@@ -1,7 +1,8 @@
 export function RmBTN({ postId, setCount }) {
+  const apiUrl = import.meta.env.VITE_API_URL || "?";
   const handleRemovePost = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/posts/${postId}`, {
+      const res = await fetch(`${apiUrl}/api/posts/${postId}`, {
         method: "delete",
         credentials: "include",
         headers: {

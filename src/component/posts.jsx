@@ -6,12 +6,13 @@ import { useOutletContext } from "react-router";
 export function Posts() {
   const [count, setCount] = useOutletContext();
   const [posts, setPosts] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL || "?";
 
   useEffect(() => {
     const controller = new AbortController();
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/posts", {
+        const res = await fetch(`${apiUrl}/api/posts`, {
           method: "GET",
           signal: controller.signal,
           credentials: "include",
@@ -30,7 +31,7 @@ export function Posts() {
     fetchData();
 
     return () => controller.abort();
-  }, [count]);
+  }, [apiUrl, count]);
 
   return (
     <div>
