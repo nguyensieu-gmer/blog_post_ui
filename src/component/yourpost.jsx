@@ -143,7 +143,7 @@ export function YourPost() {
                 {post.title}
               </h2>
 
-              <p className="whitespace-pre-wrap break-words leading-7 text-gray-600">
+              <p className="whitespace-pre-wrap wrap-break-word leading-7 text-gray-600">
                 {post.content}
               </p>
             </div>
@@ -167,7 +167,7 @@ export function YourPost() {
                         <span className="mb-1 text-sm font-semibold text-blue-600">
                           {comment.author.name}:
                         </span>{" "}
-                        <span className="break-words text-sm leading-6 text-gray-700">
+                        <span className="wrap-break-word text-sm leading-6 text-gray-700">
                           {comment.comment}
                         </span>
                       </div>
